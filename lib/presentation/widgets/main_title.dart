@@ -6,6 +6,6 @@ class MainTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Text(text,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),);
   }
 }
