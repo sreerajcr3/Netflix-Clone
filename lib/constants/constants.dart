@@ -6,3 +6,4 @@ const listviewheight = SizedBox(height: 20,);
 
 //border radius 
 BorderRadius borderRadius15 = BorderRadius.circular(15);
+BorderRadius borderRadius30 = BorderRadius.circular(30);
