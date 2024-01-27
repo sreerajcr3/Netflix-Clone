@@ -4,7 +4,9 @@ import 'package:netflix_clone/constants/constants.dart';
 
 class NumberCard extends StatelessWidget {
   final int index;
-  const NumberCard({super.key, required this.index});
+   final AsyncSnapshot snapshot;
+ 
+  const NumberCard({super.key, required this.index, required this.snapshot});
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +15,13 @@ class NumberCard extends StatelessWidget {
         Row(
           children: [
             const SizedBox(width: 60,height: 100,),
-            Container(
+            SizedBox(
                 height: 170,
                 width: 120,
-                decoration: BoxDecoration(
-                    borderRadius: borderRadius15,
-                    image: const DecorationImage(
-                        image: NetworkImage(
-                            "https://media.themoviedb.org/t/p/w220_and_h330_face/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg"),
-                        fit: BoxFit.cover)),
+               child: Image.network(
+            filterQuality: FilterQuality.high,
+            fit: BoxFit.cover,
+            '${Constants.imagePath}${snapshot.data[index].posterPath}'),
               ),
           ],
         ),

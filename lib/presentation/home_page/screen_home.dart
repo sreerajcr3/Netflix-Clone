@@ -1,19 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:netflix_clone/api/api.dart';
 import 'package:netflix_clone/constants/constants.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
+import 'package:netflix_clone/model/movie.dart';
 import 'package:netflix_clone/presentation/home_page/widgets/home_main_card.dart';
 import 'package:netflix_clone/presentation/home_page/widgets/number_title_card.dart';
-import 'package:netflix_clone/presentation/widgets/app_bar_widget.dart';
 import 'package:netflix_clone/presentation/widgets/main_title_card_home.dart';
 
 ValueNotifier<bool> ScrollNotifier = ValueNotifier(true);
 
-class ScreenHome extends StatelessWidget {
+class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
+
+  @override
+  State<ScreenHome> createState() => _ScreenHomeState();
+}
+
+late Future<List<Movie>> trendingMovies;
+late Future<List<Movie>> nowPlayingMovies;
+late Future<List<Movie>> upComingMovies;
+late Future<List<Movie>> Top10Movies;
+
+class _ScreenHomeState extends State<ScreenHome> {
   final imageurl =
       "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/yNySAgpAnWmPpYinim9E0tUzJWG.jpg";
+
   final logo = "https://pngimg.com/uploads/netflix/netflix_PNG15.png";
+
+  @override
+  initState() {
+    super.initState();
+    trendingMovies = Api().getTrendingMovies();
+    nowPlayingMovies = Api().getPopularMovie();
+    upComingMovies = Api().getUpComingMovies();
+    Top10Movies = Api().getTop10Movies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,25 +59,36 @@ class ScreenHome extends StatelessWidget {
                     ListView(
                       children: [
                         HomeMainCard(imageurl: imageurl),
-                        const MainTitleCard(
-                          title: 'Released in the past year',
+                        MainTitleCard(
+                          title: 'Now Playing',
+                          MovieType: nowPlayingMovies,
                         ),
-                        const MainTitleCard(title: 'Trending now'),
-                        const NumberTitleCard(),
-                        const MainTitleCard(title: 'Tense Dramas'),
-                        const MainTitleCard(title: 'South Indian Cinemas')
+                        MainTitleCard(
+                          title: 'Trending now',
+                          MovieType: trendingMovies,
+                        ),
+                        NumberTitleCard(MovieType: Top10Movies,),
+                        MainTitleCard(
+                          title: 'Upcoming',
+                          MovieType: upComingMovies,
+                        ),
+                        MainTitleCard(
+                          title: 'Trending now',
+                          MovieType: trendingMovies,
+                        ),
                       ],
                     ),
                     ScrollNotifier.value == true
                         ? AnimatedContainer(
-                          duration: Duration(milliseconds: 1000),
+                            duration: const Duration(milliseconds: 1000),
                             width: double.infinity,
                             height: 80,
                             color: Colors.black.withOpacity(0.3),
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   child: Row(
                                     children: [
                                       Image.network(
@@ -62,11 +96,14 @@ class ScreenHome extends StatelessWidget {
                                         height: 30,
                                         width: 30,
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       IconButton(
                                           onPressed: () {},
                                           color: kcolor,
-                                          icon: const Icon(Icons.cast,size: 30,)),
+                                          icon: const Icon(
+                                            Icons.cast,
+                                            size: 30,
+                                          )),
                                       Container(
                                         width: 30,
                                         height: 30,
@@ -76,11 +113,18 @@ class ScreenHome extends StatelessWidget {
                                   ),
                                 ),
                                 const Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    HomeAppbarText(text: 'TV Shows',),
-                                HomeAppbarText(text: 'Movies',),
-                                HomeAppbarText(text: 'Categories',)
+                                    HomeAppbarText(
+                                      text: 'TV Shows',
+                                    ),
+                                    HomeAppbarText(
+                                      text: 'Movies',
+                                    ),
+                                    HomeAppbarText(
+                                      text: 'Categories',
+                                    )
                                   ],
                                 ),
                               ],
@@ -97,12 +141,16 @@ class ScreenHome extends StatelessWidget {
 class HomeAppbarText extends StatelessWidget {
   final String text;
   const HomeAppbarText({
-    super.key, required this.text,
+    super.key,
+    required this.text,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),);
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    );
   }
 }
 

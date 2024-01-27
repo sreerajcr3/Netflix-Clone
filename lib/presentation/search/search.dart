@@ -29,7 +29,7 @@ class SearchPage extends StatelessWidget {
               style: const TextStyle(color: Colors.white),
             ),
             height,
-            Expanded(child: const SearchResult())
+            Expanded(child: const SearchIdleWidget())
                   ],
                 ),
           )),

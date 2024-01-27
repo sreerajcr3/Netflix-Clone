@@ -1,56 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:netflix_clone/constants/constants.dart';
 import 'package:netflix_clone/presentation/new_&_hot/widgets/EveryonesWatching_card.dart';
 import 'package:netflix_clone/presentation/new_&_hot/widgets/Icons.dart';
 
 class NewAndHotMainCard extends StatelessWidget {
   const NewAndHotMainCard({
-    super.key,
+    super.key, required this.snapshot, required this.index, required this.title, required this.overview, required this.date,
   });
+   final AsyncSnapshot snapshot;
+  final int index;
+ final String title;
+ final String overview;
+ final DateTime date;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
+         SizedBox(
           width: 50,
-          height: 500,
+         // height: 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "FEB",
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                DateFormat('MMM').format(date).toUpperCase(),
+                
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               Text(
-                "11",
-                style: TextStyle(
+               DateFormat('dd').format(date),
+                style: const TextStyle(
                     fontSize: 30,
                     letterSpacing: 4,
                     fontWeight: FontWeight.bold),
-              )
+              ),height,
             ],
           ),
         ),
         SizedBox(
           width: size.width - 50,
-          height: 500,
-          child:  const Column(
+         // height: 500,
+          child:   Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              EveryonesWatchingCard(),
-              Row(
+              EveryonesWatchingCardImage(snapshot: snapshot,index: index,),
+             const  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "TALL GIRL 2",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                        letterSpacing: -3),
-                  ),
-                  Row(
+                  
+                    // child: Text(
+                    //   title,
+                    //   style: const TextStyle(
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 35,
+                    //       letterSpacing: -3),
+                    // ),
+                  
+                  height,
+                   Row(
                     children: [
                       IconWidget(
                           icon: Icons.notifications_off_outlined,
@@ -65,25 +76,28 @@ class NewAndHotMainCard extends StatelessWidget {
                 ],
               ),
               height,
-              Text("Coming on Friday"),
+              const Text("Coming on Friday"),
               height,
-              Text(
-                'Tall Girl 2',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+               Text(
+               title,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
-              height,
-              Text(
-                "Landing the lead in the school musical is a dream come true for jodi, until the pressure send her confidence - and her relationship - into a tallspain",
-                style: TextStyle(
+             height,
+               Text(
+               overview,
+                style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey),
-              )
+              ),
+              height
             ],
           ),
-        )
+          
+        ),
       ],
     );
+    
   }
 }
 

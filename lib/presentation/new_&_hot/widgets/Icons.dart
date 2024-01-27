@@ -16,9 +16,9 @@ class IconWidget extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: kcolor,size: 25,
+          color: kcolor,size: 18,
         ),
-        Text(text,style: TextStyle(fontSize: 16),)
+        Text(text,style: TextStyle(fontSize: 13),)
       ],
     );
   }

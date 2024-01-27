@@ -4,21 +4,23 @@ import 'package:netflix_clone/constants/constants.dart';
 class HomeMovieCard extends StatelessWidget {
   const HomeMovieCard({
     super.key,
+    required this.snapshot,
+    required this.index,
   });
+  final AsyncSnapshot snapshot;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: Container(
+      child: SizedBox(
         height: 150,
         width: 120,
-        decoration: BoxDecoration(
-            borderRadius: borderRadius15,
-            image: DecorationImage(
-                image: NetworkImage(
-                    "https://media.themoviedb.org/t/p/w220_and_h330_face/7lTnXOy0iNtBAdRP3TZvaKJ77F6.jpg"),
-                fit: BoxFit.cover)),
+        child: Image.network(
+            filterQuality: FilterQuality.high,
+            fit: BoxFit.cover,
+            '${Constants.imagePath}${snapshot.data[index].posterPath}'),
       ),
     );
   }

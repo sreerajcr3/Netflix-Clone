@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/constants/constants.dart';
 import 'package:netflix_clone/core/colors/colors.dart';
-import 'package:netflix_clone/presentation/new_&_hot/new_n_hot.dart';
 
-class EveryonesWatchingCard extends StatelessWidget {
-  const EveryonesWatchingCard({
-    super.key,
+class EveryonesWatchingCardImage extends StatelessWidget {
+  const EveryonesWatchingCardImage({
+    super.key, required this.snapshot, required this.index,
   });
+   final AsyncSnapshot snapshot;
+  final int index;
+
   
 
   @override
@@ -16,15 +19,15 @@ class EveryonesWatchingCard extends StatelessWidget {
           width: double.infinity,
           height: 200,
           child: Image.network(
-            imageurl,
+            filterQuality: FilterQuality.high,
             fit: BoxFit.cover,
-          ),
+            '${Constants.imagePath}${snapshot.data[index].posterPath}'),
         ),
         Positioned(
           bottom: 10,
           right: 5,
           child: CircleAvatar(
-            radius: 25,
+            radius: 18,
             backgroundColor: Colors.black.withOpacity(0.5),
             child: const Icon(
               Icons.volume_off,

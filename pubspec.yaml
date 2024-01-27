@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
   bordered_text: ^2.0.0
+  json_annotation: ^4.8.1
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
