@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/constants/constants.dart';
 import 'package:netflix_clone/model/movie.dart';
-import 'package:netflix_clone/presentation/home_page/screen_home.dart';
 import 'package:netflix_clone/presentation/widgets/main_card.dart';
 import 'package:netflix_clone/presentation/widgets/main_title.dart';
 

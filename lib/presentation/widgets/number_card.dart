@@ -4,8 +4,8 @@ import 'package:netflix_clone/constants/constants.dart';
 
 class NumberCard extends StatelessWidget {
   final int index;
-   final AsyncSnapshot snapshot;
- 
+  final AsyncSnapshot snapshot;
+
   const NumberCard({super.key, required this.index, required this.snapshot});
 
   @override
@@ -14,24 +14,34 @@ class NumberCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            const SizedBox(width: 60,height: 100,),
+            const SizedBox(
+              width: 60,
+              height: 100,
+            ),
             SizedBox(
-                height: 170,
-                width: 120,
-               child: Image.network(
-            filterQuality: FilterQuality.high,
-            fit: BoxFit.cover,
-            '${Constants.imagePath}${snapshot.data[index].posterPath}'),
-              ),
+              height: 170,
+              width: 120,
+              child: Image.network(
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.cover,
+                  '${Constants.imagePath}${snapshot.data[index].posterPath}'),
+            ),
           ],
         ),
         Positioned(
           left: 30,
-          bottom:0 ,
-          
+          bottom: 0,
           child: BorderedText(
             strokeWidth: 10,
-            child: Text('${index+1}',style: const TextStyle(fontSize: 100,decoration: TextDecoration.none,decorationColor:Colors.red ),)))
+            child: Text(
+              '${index + 1}',
+              style: const TextStyle(
+                  fontSize: 100,
+                  decoration: TextDecoration.none,
+                  ),
+            ),
+          ),
+        ),
       ],
     );
   }

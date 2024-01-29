@@ -24,7 +24,7 @@ late Future<List<Movie>> Top10Movies;
 
 class _ScreenHomeState extends State<ScreenHome> {
   final imageurl =
-      "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/yNySAgpAnWmPpYinim9E0tUzJWG.jpg";
+      "https://mir-s3-cdn-cf.behance.net/project_modules/1400/30ffaa58808319.5bf4f5ed3e17a.jpg";
 
   final logo = "https://pngimg.com/uploads/netflix/netflix_PNG15.png";
 
@@ -97,18 +97,19 @@ class _ScreenHomeState extends State<ScreenHome> {
                                         width: 30,
                                       ),
                                       const Spacer(),
-                                      IconButton(
-                                          onPressed: () {},
-                                          color: kcolor,
-                                          icon: const Icon(
-                                            Icons.cast,
-                                            size: 30,
-                                          )),
-                                      Container(
-                                        width: 30,
-                                        height: 30,
-                                        color: Colors.blue,
-                                      )
+                                      // IconButton(
+                                      //     onPressed: () {},
+                                      //     color: kcolor,
+                                      //     icon: const Icon(
+                                      //       Icons.cast,
+                                      //       size: 30,
+                                      //     )),
+                                          widget,
+                                      // SizedBox(
+                                      //   width: 30,
+                                      //   height: 30,
+                                      //  child: Image.network("https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-88wkdmjrorckekha.jpg"),
+                                      // )
                                     ],
                                   ),
                                 ),

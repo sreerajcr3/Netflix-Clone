@@ -29,19 +29,28 @@ class HomeMainCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                 HomeStackIcon(icon: Icons.add,text: "My List",),
+                const HomeStackIcon(
+                  icon: Icons.add,
+                  text: "My List",
+                ),
                 TextButton.icon(
                   onPressed: () {},
                   icon: const Icon(
                     Icons.play_arrow,
                   ),
-                  label: const Text('Play',style: TextStyle(color: blackcolor),),
-                  style: const ButtonStyle(shape: MaterialStatePropertyAll(RoundedRectangleBorder()),
-                    backgroundColor:
-                        MaterialStatePropertyAll(Colors.white),iconColor: MaterialStatePropertyAll(blackcolor)
+                  label: const Text(
+                    'Play',
+                    style: TextStyle(color: blackcolor),
                   ),
+                  style: const ButtonStyle(
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder()),
+                      backgroundColor: MaterialStatePropertyAll(Colors.white),
+                      iconColor: MaterialStatePropertyAll(blackcolor)),
                 ),
-                   HomeStackIcon(icon: Icons.info,text: "Info",),
+                const HomeStackIcon(
+                  icon: Icons.info,
+                  text: "Info",
+                ),
               ],
             ),
           ),

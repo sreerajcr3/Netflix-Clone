@@ -1,15 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/assets/assets.dart';
+import 'package:netflix_clone/constants/constants.dart';
+import 'package:netflix_clone/presentation/fast_laugh/widgets/play_button_widget.dart';
+import 'package:video_player/video_player.dart';
 
-class VideoLIst extends StatelessWidget {
+class VideoListItem extends StatefulWidget {
   final int index;
-  const VideoLIst({super.key, required this.index});
+  const VideoListItem({super.key, required this.index});
+
+  @override
+  State<VideoListItem> createState() => _VideoLIstState();
+}
+
+class _VideoLIstState extends State<VideoListItem> {
+  VideoPlayerController? playerController;
+  bool isVolumeOn = true;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      playerController =
+          VideoPlayerController.networkUrl(Uri.parse(videoList[widget.index]));
+    });
+    playerController!.initialize();
+    playerController!.play();
+    playerController!.setVolume(4);
+    playerController!.setLooping(true);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    playerController!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
-          color: Colors.accents[index % Colors.accents.length],
+        SizedBox(
+          // width: playerController!.value.size.width,
+          // height: playerController!.value.size.height,
+          child: VideoPlayer(playerController!),
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
@@ -19,39 +52,45 @@ class VideoLIst extends StatelessWidget {
             children: [
               //left side
               CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.black.withOpacity(0.5),
-                  child: IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.volume_off,size: 30,color: Colors.white,))),
+                radius: 30,
+                backgroundColor: Colors.black.withOpacity(0.5),
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isVolumeOn == false
+                          ? playerController!.setVolume(4)
+                          : playerController!.setVolume(0);
+                      isVolumeOn = !isVolumeOn;
+                    });
+                  },
+                  icon: isVolumeOn
+                      ? const Icon(Icons.volume_up,color: Colors.white,)
+                      : const Icon(Icons.volume_off),color: Colors.white,
+                ),
+              ),
               //right side
-              const Column(
+               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CircleAvatar(
-                      radius: 25 ,
+                      radius: 25,
                       backgroundImage: NetworkImage(
-                        "https://media.themoviedb.org/t/p/w220_and_h330_face/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+                       images[widget.index],
                       ),
                     ),
                   ),
-                  IconsVideoList(
+                  const IconsVideoList(
                     iconPassed: Icons.emoji_emotions,
-                    text:'Lol',
+                    text: 'Lol',
                   ),
-                  IconsVideoList(
+                  const IconsVideoList(
                     iconPassed: Icons.add,
                     text: 'My List',
                   ),
-                  IconsVideoList(
-                    iconPassed: Icons.share,
-                    text:'Share'
-                  ),
-                  IconsVideoList(
-                    iconPassed:Icons.play_arrow,
-                    text: 'Play',
-                  )
+                  const IconsVideoList(iconPassed: Icons.share, text: 'Share'),
+                 VideoPlayButton(playerController: playerController!)
                 ],
               ),
             ],
@@ -74,9 +113,19 @@ class IconsVideoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
       child: Column(
-        children: [Icon(iconPassed,color: Colors.white,size: 30,), Text(text,style: TextStyle(fontSize: 13),)],
+        children: [
+          Icon(
+            iconPassed,
+            color: Colors.white,
+            size: 30,
+          ),
+          Text(
+            text,
+            style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+          )
+        ],
       ),
     );
   }

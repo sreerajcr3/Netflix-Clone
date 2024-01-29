@@ -21,7 +21,7 @@ class EveryonesWatchingCardImage extends StatelessWidget {
           child: Image.network(
             filterQuality: FilterQuality.high,
             fit: BoxFit.cover,
-            '${Constants.imagePath}${snapshot.data[index].posterPath}'),
+            '${Constants.imagePath}${snapshot.data[index].backdropPath}'),
         ),
         Positioned(
           bottom: 10,

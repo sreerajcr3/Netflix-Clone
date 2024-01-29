@@ -15,6 +15,7 @@ class ScreenNewNHot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      
       length: 2,
       child: Scaffold(
         appBar: PreferredSize(
@@ -37,6 +38,7 @@ class ScreenNewNHot extends StatelessWidget {
                 )
               ],
               bottom: TabBar(
+                padding: EdgeInsets.only(bottom: 10),
                   dividerColor: blackcolor,
                   indicatorPadding: const EdgeInsets.symmetric(horizontal: -20),
                   //   labelPadding: EdgeInsets.symmetric(horizontal: 20),
